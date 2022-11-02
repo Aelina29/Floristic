@@ -1,21 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lesson 4</title>
+    <title>Floristic</title>
     <meta charset="UTF-8"/>
 
     <script src="src/index.js" type="module"></script>
 </head>
 
-<body>
-<h1>Implement the symbolic diff here</h1>
-<div id="container">
+<style>
+        table{
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        th, td{
+            padding: 10px 20px;
+            border: 1px solid #000;
+        }
+</style>
 
-</div>
+<body>
+<h1>Floristic</h1>
+
 <div>
+    <form>
+        <label for="data">Дата доставки</label>
+        <input type="text" id="data" placeholder="17.05.22">
+    </form>
+
+    <form>
+        <label for="time">Время доставки</label>
+        <input type="text" id="time" placeholder="10.30">
+    </form>
+
+    <form>
+        <label for="description">Описание заказаи</label>
+        <input type="text" id="description" placeholder="Белые розы 15 шт">
+    </form>
+
+    <form>
+        <label for="adress">Адрес доставки</label>
+        <input type="text" id="adress" placeholder="Мильчакова 8а">
+    </form>
+
     <button id="demoButton">
-        Add something
+        Добавить заказ
     </button>
 </div>
+
+<!--<div>-->
+<!--    <form>-->
+<!--        <label for="deleteId">id заказа</label>-->
+<!--        <input type="text" id="deleteId" placeholder="17">-->
+<!--    </form>-->
+
+<!--    <button id="deleteButton">-->
+<!--        Удалить заказ-->
+<!--    </button>-->
+<!--</div>-->
+
+<div id="tableDiv">
+    <table>
+        <caption>Таблица заказов</caption>
+        <tr>
+            <th>id</th>
+            <th>Дата</th>
+            <th>Время</th>
+            <th>Описание</th>
+            <th>Адресс Доставки</th>
+        </tr>
+        <tbody id = "tableBody">
+        <tr><td>34</td><td>17.05.22</td><td>16.45</td><td>Алые розы 101 шт</td><td>Мильчакова 8а</td></tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

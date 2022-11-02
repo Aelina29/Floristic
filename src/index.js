@@ -1,14 +1,88 @@
+import {Table} from "../src/table";
+import {Order} from "../src/table";
+
 document.addEventListener('DOMContentLoaded',setup)
 
 function setup() {
-    document.getElementById('demoButton').onclick = addSomething;
+    document.getElementById('demoButton').onclick = addOrder;
+    //document.getElementById('deleteButton').onclick = deleteOrder;
 }
 
-function addSomething(){
-    const someDummyDiv = document.createElement('div');
-    someDummyDiv.classList.add('generated');
-    const count = document.getElementsByClassName('generated').length;
-    someDummyDiv.innerHTML = `I was created by JS! There are already ${count} of my friends!`;
-    const container = document.getElementById('container');
-    container.appendChild(someDummyDiv);
+let table = new Table();
+//загрузить из бд
+
+// function createRow(ord)
+// {
+//     let row = document.createElement('tr');
+//
+//     let d1 = document.createElement('td');
+//     d1.innerHTML = table.count;
+//     row.appendChild(d1);
+//
+//     let d2 = document.createElement('td');
+//     d2.innerHTML = ord.date;
+//     row.appendChild(d2);
+//
+//     let d3 = document.createElement('td');
+//     d3.innerHTML = ord.time;
+//     row.appendChild(d3);
+//
+//     let d4 = document.createElement('td');
+//     d4.innerHTML = ord.discription;
+//     row.appendChild(d4);
+//
+//     let d5 = document.createElement('td');
+//     d5.innerHTML = ord.adress;
+//     row.appendChild(d5);
+//
+//     return row;
+// }
+
+// function redrawTable()
+// {
+//     const tableBody = document.getElementById('tableBody');
+//     table.map.forEach(element => {let row = createRow(element); tableBody.appendChild(row);});
+// }
+
+function addOrder(){
+    // const data = document.getElementById('data').value;
+    // const time = document.getElementById('time').value;
+    // const disc = document.getElementById('description').value;
+    // const adr = document.getElementById('data').value;
+    let ord = new Order("17.05.22","9.00","Белые розы 31 шт","Соборный 22");
+    //let ord = new Order(data,time,disc,adr);
+    table.AddOrder(ord);
+
+    //redrawTable();
+
+    const tableBody = document.getElementById('tableBody');
+    let row = document.createElement('tr');
+
+    let d1 = document.createElement('td');
+    d1.innerHTML = table.count;
+    row.appendChild(d1);
+
+    let d2 = document.createElement('td');
+    d2.innerHTML = ord.date;
+    row.appendChild(d2);
+
+    let d3 = document.createElement('td');
+    d3.innerHTML = ord.time;
+    row.appendChild(d3);
+
+    let d4 = document.createElement('td');
+    d4.innerHTML = ord.discription;
+    row.appendChild(d4);
+
+    let d5 = document.createElement('td');
+    d5.innerHTML = ord.adress;
+    row.appendChild(d5);
+
+    tableBody.appendChild(row);
 }
+
+// function deleteOrder(){
+//     const deleteId = Number(document.getElementById('deleteId').value);
+//     table.DeleteOrderBuId(deleteId);
+//     //redrawTable();
+// }
