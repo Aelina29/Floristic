@@ -19,6 +19,7 @@ class Table {
   }
   DeleteOrderBuId(id)
   {
+    this.count--;
     this.map.delete(id);
   }
 }
