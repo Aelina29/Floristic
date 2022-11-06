@@ -12,8 +12,12 @@ function setup() {
 
 let table = new Table();
 //загрузить из бд?
-// table.AddOrder(new Order(table.lastID+1,"17-05-22","9.00","Белые розы 31 шт","Соборный 22"));
-// redrawTable();
+table.AddOrder(new Order(table.lastID+1,"17-05-22","9.00","Алые розы 31 шт","Соборный 22"));
+table.AddOrder(new Order(table.lastID+1,"17-05-22","12.30","Желтые тюльпаны 13 шт","Мильчакова 8а"));
+table.AddOrder(new Order(table.lastID+1,"18-05-22","9.00","Тюльпаны желтые и розовые астромерии на 1500","Самовывоз"));
+table.AddOrder(new Order(table.lastID+1,"17-05-22","9.15","Сухоцвет на 1000","Кировский 19"));
+table.AddOrder(new Order(table.lastID+1,"18-05-22","9.00","Лаванда пучок","Самовывоз"));
+redrawTable();
 
 function createRow(ord)
 {
