@@ -1,5 +1,5 @@
 class Order{
-  constructor(date, time, discription, adress, id) {
+  constructor(id, date, time, discription, adress) {
       this.id = id;
       this.date = date;
       this.time = time;
@@ -11,37 +11,37 @@ class Order{
 class Table {
   constructor() {
     this.arr = new Array();
-    this.count = 0;
+    this.lastID = 0;
   }
   AddOrder(ord)
   {
-    this.count++;
-    this.arr.push(this.count, ord);
+    this.arr.push(ord);
+    this.lastID++;
   }
-  DeleteOrderBuId(id)
+  DeleteOrderById(id)
   {
-    this.count--;
-    this.map.delete(id);
+      const ind = this.arr.findIndex(el => el.id == id);
+      if (ind!=-1) this.arr.splice(ind, 1);
   }
-  SorByTime()
-  {
-
-  }
+  // SorByTime()
+  // {
+  //     this.arr.sort(TimeCompare);
+  // }
 }
 
 function TimeCompare(a,b)
+{
+  let ar = a.split('.');
+  let br = b.split('.');
+  if (Number(ar[0]) < Number(br[0])) return -1;
+  if (Number(ar[0]) > Number(br[0])) return 1;
+  if (Number(ar[0]) == Number(br[0]))
   {
-      let ar = a.split('.');
-      let br = b.split('.');
-      if (Number(ar[0]) < Number(br[0])) return -1;
-      if (Number(ar[0]) > Number(br[0])) return 1;
-      if (Number(ar[0]) == Number(br[0]))
-      {
-          if (Number(ar[1]) < Number(br[1])) return -1;
-          if (Number(ar[1]) > Number(br[1])) return 1;
-          if (Number(ar[1]) == Number(br[1])) return 0;
-      }
+      if (Number(ar[1]) < Number(br[1])) return -1;
+      if (Number(ar[1]) > Number(br[1])) return 1;
+      if (Number(ar[1]) == Number(br[1])) return 0;
   }
+}
 
 function IsTime(str)
 {

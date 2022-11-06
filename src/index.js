@@ -12,12 +12,14 @@ function setup() {
 
 let table = new Table();
 //загрузить из бд?
+// table.AddOrder(new Order(table.lastID+1,"17-05-22","9.00","Белые розы 31 шт","Соборный 22"));
+// redrawTable();
 
-function createRow(ord,id)
+function createRow(ord)
 {
     let row = document.createElement('tr');
     let d1 = document.createElement('td');
-    d1.innerHTML = id;
+    d1.innerHTML = ord.id;
     row.appendChild(d1);
     let d2 = document.createElement('td');
     d2.innerHTML = ord.date;
@@ -40,7 +42,8 @@ function redrawTable()
     tableB.remove();
     const tableBody = document.createElement('tbody');
     document.getElementById('table').appendChild(tableBody);
-    table.map.forEach((value, key) => {let row = createRow(value, key); tableBody.appendChild(row);});
+    //table.arr.forEach((value, key) => {let row = createRow(value, key); tableBody.appendChild(row);});
+    table.arr.forEach(el => {let row = createRow(el); tableBody.appendChild(row);});
 }
 
 function addOrder(){
@@ -51,14 +54,13 @@ function addOrder(){
     if (!IsTime(time)) {alert("Wrong Time!!!"); f = 0;}
     const disc = document.getElementById('description').value;
     const adr = document.getElementById('address').value;
-    let ord = new Order("17.05.22","9.00","Белые розы 31 шт","Соборный 22");
-    //let ord = new Order(data,time,disc,adr);
+    let ord = new Order(table.lastID+1,"17-05-22","9.00","Белые розы 31 шт","Соборный 22");
     if (f) table.AddOrder(ord);
     redrawTable();
 }
 
 function deleteOrder(){
     const deleteId = Number(document.getElementById('deleteId').value);
-    table.DeleteOrderBuId(deleteId);
+    table.DeleteOrderById(deleteId);
     redrawTable();
 }
