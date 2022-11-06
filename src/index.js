@@ -17,7 +17,11 @@ table.AddOrder(new Order(table.lastID+1,"17-05-22","9.00","Алые розы 31 
 table.AddOrder(new Order(table.lastID+1,"17-05-22","12.30","Желтые тюльпаны 13 шт","Мильчакова 8а"));
 table.AddOrder(new Order(table.lastID+1,"18-05-22","9.00","Тюльпаны желтые и розовые астромерии на 1500","Самовывоз"));
 table.AddOrder(new Order(table.lastID+1,"17-05-22","9.15","Сухоцвет на 1000","Кировский 19"));
+table.AddOrder(new Order(table.lastID+1,"18-05-22","9.15","Розы на выворот, корзина, нежно, 2500","Суворова 21"));
 table.AddOrder(new Order(table.lastID+1,"18-05-22","14.30","Лаванда пучок","Самовывоз"));
+table.AddOrder(new Order(table.lastID+1,"19-05-22","18.30","Свеча девушка торс, лавандовая свеча, пучек лаванды, имбирный пряник","Красноармейская 127 б"));
+table.AddOrder(new Order(table.lastID+1,"18-05-22","18.30","Подсолнухи на 5000","Пушкинская 145"));
+table.AddOrder(new Order(table.lastID+1,"18-05-22","18.30","Имбирный пряник 4, Открытка с днем матери любая, букет на 2500 яркий","Доломановский 12"));
 redrawTable();
 
 function sortTime()
@@ -53,7 +57,6 @@ function redrawTable()
     tableB.remove();
     const tableBody = document.createElement('tbody');
     document.getElementById('table').appendChild(tableBody);
-    //table.arr.forEach((value, key) => {let row = createRow(value, key); tableBody.appendChild(row);});
     table.arr.forEach(el => {let row = createRow(el); tableBody.appendChild(row);});
 }
 
@@ -74,4 +77,18 @@ function deleteOrder(){
     const deleteId = Number(document.getElementById('deleteId').value);
     table.DeleteOrderById(deleteId);
     redrawTable();
+}
+
+function OrderForeachTime()
+{
+    let map = new Map();
+    for (let i = 0; i< table.arr.length; i++)
+    {
+        let time = table.arr[i].time();
+        if (!map.has(time)) map.set(time,1);
+        else {
+            map.set(time,map.get(time)+1);
+        }
+    }
+    return map;
 }
