@@ -25,6 +25,7 @@ class Table {
   }
   SorByTime() {
       this.arr.sort(TimeCompare);
+      this.arr.sort(DateCompare);
   }
 }
 
@@ -40,6 +41,19 @@ function TimeCompare(a,b)
       if (Number(ar[1]) > Number(br[1])) return 1;
       if (Number(ar[1]) == Number(br[1])) return 0;
   }
+}
+
+function DateCompare(a,b)
+{
+  let ar = a.date.split('-');
+  let br = b.date.split('-');
+  if (Number(ar[2]) < Number(br[2])) return -1;
+  if (Number(ar[2]) > Number(br[2])) return 1;
+  if (Number(ar[1]) < Number(br[1])) return -1;
+  if (Number(ar[1]) > Number(br[1])) return 1;
+  if (Number(ar[0]) < Number(br[0])) return -1;
+  if (Number(ar[0]) > Number(br[0])) return 1;
+  if (Number(ar[0]) == Number(br[0])) return 0;
 }
 
 function IsTime(str)
