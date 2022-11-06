@@ -1,27 +1,80 @@
 class Order{
-  constructor(date, time, discription, adress) {
-    this.date = date;
-    this.time = time;
-    this.discription = discription;
-    this.adress = adress;
+  constructor(date, time, discription, adress, id) {
+      this.id = id;
+      this.date = date;
+      this.time = time;
+      this.discription = discription;
+      this.adress = adress;
   }
 }
 
 class Table {
   constructor() {
-    this.map = new Map();
+    this.arr = new Array();
     this.count = 0;
   }
   AddOrder(ord)
   {
     this.count++;
-    this.map.set(this.count+1, ord);
+    this.arr.push(this.count, ord);
   }
   DeleteOrderBuId(id)
   {
     this.count--;
     this.map.delete(id);
   }
+  SorByTime()
+  {
+
+  }
 }
+
+function TimeCompare(a,b)
+  {
+      let ar = a.split('.');
+      let br = b.split('.');
+      if (Number(ar[0]) < Number(br[0])) return -1;
+      if (Number(ar[0]) > Number(br[0])) return 1;
+      if (Number(ar[0]) == Number(br[0]))
+      {
+          if (Number(ar[1]) < Number(br[1])) return -1;
+          if (Number(ar[1]) > Number(br[1])) return 1;
+          if (Number(ar[1]) == Number(br[1])) return 0;
+      }
+  }
+
+function IsTime(str)
+{
+    const ar = str.split('.');
+    if (ar.length != 2) return false;
+    const h = Number(ar[0]);
+    if (isNaN(h)) return false;
+    if (h<0 || h > 23) return false;
+    const min = Number(ar[1]);
+    if (isNaN(min)) return false;
+    if (min<0 || min > 59) return false;
+    return true;
+}
+function IsDate(str)
+{
+    const ar = str.split('-');
+    if (ar.length != 3) return false;
+    // ar.forEach(el => {
+    //     console.log(el);
+    //     console.log(isNaN(Number(el)));
+    //     if (isNaN(Number(el))) return false;
+    // }); //ПАЧИМУ НЕ РАБОТАЕТ??????????????
+    for (let i = 0; i < 3; i++) {
+        if (isNaN(Number(ar[i]))) return false;
+    }
+    if (ar[1]>12) return false;
+    if (ar[1] = 2 && ar[0]>28) return false;
+    if (((ar[1] = 12)|| (ar[1] = 1)||(ar[1] = 3)||(ar[1] = 5)||(ar[1] = 7)||(ar[1] = 8)||(ar[1] = 10)) && ar[0]>31) return false;
+    if ((((ar[1] = 4)||(ar[1] = 6)||(ar[1] = 9)||(ar[1] = 11)) && ar[0]>30)) return false;
+    return true;
+}
+
 export {Order}
 export {Table}
+export {IsTime}
+export {IsDate}
