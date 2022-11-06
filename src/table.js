@@ -23,16 +23,15 @@ class Table {
       const ind = this.arr.findIndex(el => el.id == id);
       if (ind!=-1) this.arr.splice(ind, 1);
   }
-  // SorByTime()
-  // {
-  //     this.arr.sort(TimeCompare);
-  // }
+  SorByTime() {
+      this.arr.sort(TimeCompare);
+  }
 }
 
 function TimeCompare(a,b)
 {
-  let ar = a.split('.');
-  let br = b.split('.');
+  let ar = a.time.split('.');
+  let br = b.time.split('.');
   if (Number(ar[0]) < Number(br[0])) return -1;
   if (Number(ar[0]) > Number(br[0])) return 1;
   if (Number(ar[0]) == Number(br[0]))

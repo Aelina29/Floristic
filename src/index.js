@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded',setup);
 function setup() {
     document.getElementById('addButton').onclick = addOrder;
     document.getElementById('deleteButton').onclick = deleteOrder;
+    document.getElementById('sortButton').onclick = sortTime;
 }
 
 let table = new Table();
@@ -16,8 +17,14 @@ table.AddOrder(new Order(table.lastID+1,"17-05-22","9.00","Алые розы 31 
 table.AddOrder(new Order(table.lastID+1,"17-05-22","12.30","Желтые тюльпаны 13 шт","Мильчакова 8а"));
 table.AddOrder(new Order(table.lastID+1,"18-05-22","9.00","Тюльпаны желтые и розовые астромерии на 1500","Самовывоз"));
 table.AddOrder(new Order(table.lastID+1,"17-05-22","9.15","Сухоцвет на 1000","Кировский 19"));
-table.AddOrder(new Order(table.lastID+1,"18-05-22","9.00","Лаванда пучок","Самовывоз"));
+table.AddOrder(new Order(table.lastID+1,"18-05-22","14.30","Лаванда пучок","Самовывоз"));
 redrawTable();
+
+function sortTime()
+{
+    table.SorByTime();
+    redrawTable();
+}
 
 function createRow(ord)
 {
