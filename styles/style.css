@@ -1,0 +1,12 @@
+.all {
+    display: flex;
+    gap: 10px;
+    /*flex-direction: row-reverse;*/
+    /*column*/
+}
+.deladd
+{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

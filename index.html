@@ -3,8 +3,8 @@
 <head>
     <title>Floristic</title>
     <meta charset="UTF-8"/>
-
     <script src="src/index.js" type="module"></script>
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <style>
@@ -21,68 +21,68 @@
 <body>
 <h1>Floristic</h1>
 
-<div>
-    <form>
-        <label for="data">Дата доставки</label>
-        <input type="text" id="data" placeholder="17-05-22">
-    </form>
+<div class="all">
+    <div class = "deladd">
+        <form>
+            <label for="data">Дата доставки</label>
+            <input type="text" id="data" placeholder="17-05-22">
+        </form>
 
-    <form>
-        <label for="time">Время доставки</label>
-        <input type="text" id="time" placeholder="10.30">
-    </form>
+        <form>
+            <label for="time">Время доставки</label>
+            <input type="text" id="time" placeholder="10.30">
+        </form>
 
-    <form>
-        <label for="description">Описание заказаи</label>
-        <input type="text" id="description" placeholder="Белые розы 15 шт">
-    </form>
+        <form>
+            <label for="description">Описание заказаи</label>
+            <input type="text" id="description" placeholder="Белые розы 15 шт">
+        </form>
 
-    <form>
-        <label for="address">Адрес доставки</label>
-        <input type="text" id="address" placeholder="Мильчакова 8а">
-    </form>
+        <form>
+            <label for="address">Адрес доставки</label>
+            <input type="text" id="address" placeholder="Мильчакова 8а">
+        </form>
 
-    <button id="addButton">
-        Добавить заказ
-    </button>
-</div>
+        <button id="addButton">
+            Добавить заказ
+        </button>
 
-<div>
-    <form>
-        <label for="deleteId">id заказа</label>
-        <input type="text" id="deleteId" placeholder="17">
-    </form>
+        <form>
+            <label for="deleteId">id заказа</label>
+            <input type="text" id="deleteId" placeholder="17">
+        </form>
 
-    <button id="deleteButton">
-        Удалить заказ
-    </button>
-</div>
+        <button id="deleteButton">
+            Удалить заказ
+        </button>
 
-<button id="sortButton">
-        Сортировать по времени
-</button>
+        <button id="sortButton">
+            Сортировать по времени
+        </button>
+    </div>
 
-<svg height="200" width="500">
-<polyline points="20,20 40,25 60,40 80,120 120,140 200,180"
-style="fill:none;stroke:black;stroke-width:3" />
-</svg>
+    <div id="tableDiv">
+        <table id="table">
+            <caption>Таблица заказов</caption>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th>Описание</th>
+                    <th>Адресс Доставки</th>
+                </tr>
+            </thead>
+            <tbody id = "tableBody">
+                <!--<tr><td>34</td><td>17.05.22</td><td>16.45</td><td>Алые розы 101 шт</td><td>Мильчакова 8а</td></tr>-->
+            </tbody>
+        </table>
+    </div>
 
-<div id="tableDiv">
-    <table id="table">
-        <caption>Таблица заказов</caption>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Дата</th>
-                <th>Время</th>
-                <th>Описание</th>
-                <th>Адресс Доставки</th>
-            </tr>
-        </thead>
-        <tbody id = "tableBody">
-<!--            <tr><td>34</td><td>17.05.22</td><td>16.45</td><td>Алые розы 101 шт</td><td>Мильчакова 8а</td></tr>-->
-        </tbody>
-    </table>
+    <div>
+        <canvas id="myCanvas"></canvas>
+    </div>
+
 </div>
 
 </body>

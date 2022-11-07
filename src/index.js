@@ -2,6 +2,7 @@ import {Table} from "../src/table";
 import {Order} from "../src/table";
 import {IsTime} from "../src/table";
 import {IsDate} from "../src/table";
+import {Barchart} from "../src/canvas";
 
 document.addEventListener('DOMContentLoaded',setup);
 
@@ -23,6 +24,23 @@ table.AddOrder(new Order(table.lastID+1,"19-05-22","18.30","Свеча деву�
 table.AddOrder(new Order(table.lastID+1,"18-05-22","18.30","Подсолнухи на 5000","Пушкинская 145"));
 table.AddOrder(new Order(table.lastID+1,"18-05-22","18.30","Имбирный пряник 4, Открытка с днем матери любая, букет на 2500 яркий","Доломановский 12"));
 redrawTable();
+
+let mapData = OrderForeachTime();
+const myCanvas = document.getElementById("myCanvas");
+myCanvas.width = 300;
+myCanvas.height = 300;
+let myBarchart = new Barchart(
+    {
+        canvas:myCanvas,
+        seriesName:"Vinyl records",
+        padding:20,
+        gridScale:1,
+        gridColor:"#555454",
+        data:mapData,
+        colors:["#a55ca5","#67b6c7", "#bccd7a","#eb9743"]
+    }
+);
+myBarchart.draw();
 
 function sortTime()
 {
@@ -84,11 +102,12 @@ function OrderForeachTime()
     let map = new Map();
     for (let i = 0; i< table.arr.length; i++)
     {
-        let time = table.arr[i].time();
+        let time = table.arr[i].time;
         if (!map.has(time)) map.set(time,1);
         else {
             map.set(time,map.get(time)+1);
         }
     }
-    return map;
+    const sortedAsc = new Map([...map].sort());
+    return sortedAsc;
 }
