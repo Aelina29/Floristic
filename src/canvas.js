@@ -1,3 +1,5 @@
+import {TimeCompare} from "../src/table";
+
 function drawLine(ctx, startX, startY, endX, endY,color){
     ctx.save();
     ctx.strokeStyle = color;
@@ -6,8 +8,6 @@ function drawLine(ctx, startX, startY, endX, endY,color){
     ctx.lineTo(endX,endY);
     ctx.stroke();
     ctx.restore();
-
-            console.log("drawLine");
 }
 
 function drawBar(ctx, upperLeftCornerX, upperLeftCornerY, width, height,color){
@@ -15,109 +15,86 @@ function drawBar(ctx, upperLeftCornerX, upperLeftCornerY, width, height,color){
     ctx.fillStyle=color;
     ctx.fillRect(upperLeftCornerX,upperLeftCornerY,width,height);
     ctx.restore();
+
 }
 
 class Barchart
 {
-    constructor(options) {
-        this.options = options;
-        this.canvas = options.canvas;
-        this.ctx = this.canvas.getContext("2d");
-        this.colors = options.colors;
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext("2d");
+        this.colors = ["#a55ca5","#67b6c7", "#bccd7a","#eb9743"];
+        this.padding = 20;
+        this.gridScale = 1;
+        this.gridColor = "#555454";
     }
-
-    draw()
+    draw(mapData)
     {
-        let maxValue = 0;
-        for (let val of this.options.data.values()) {
-            maxValue = Math.max(maxValue,val);
-        }
-        let canvasActualHeight = this.canvas.height - this.options.padding * 2;
-        let canvasActualWidth = this.canvas.width - this.options.padding * 2;
+        //чистим
+        this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
 
-        //drawing the grid lines
+        //создаем массив ключей и сортируем его
+        let sortKey = new Array();
+        let iterKey = mapData.keys();
+        for (let i = 0; i<mapData.size;i++)
+            sortKey.push(iterKey.next().value);
+        sortKey = sortKey.sort(TimeCompare);
+
+        let maxValue = 0;
+        for (let val of mapData.values()) { maxValue = Math.max(maxValue,val); }
+        let canvasActualHeight = this.canvas.height - this.padding * 2;
+        let canvasActualWidth = this.canvas.width - this.padding * 2;
+
+        //рисуем горизонтальные линии
         let gridValue = 0;
-        while (gridValue <= maxValue){
-            let gridY = canvasActualHeight * (1 - gridValue/maxValue) + this.options.padding;
-            drawLine(
-                this.ctx,
-                0,
-                gridY,
-                this.canvas.width,
-                gridY,
-                this.options.gridColor
-            );
-            //writing grid markers
+        while (gridValue <= maxValue)
+        {
+            let gridY = canvasActualHeight * (1 - gridValue/maxValue) + this.padding;
+            drawLine(this.ctx,0,gridY,this.canvas.width,gridY,this.gridColor);
+            //и горизонтальные метки
             this.ctx.save();
-            this.ctx.fillStyle = this.options.gridColor;
+            this.ctx.fillStyle = this.gridColor;
             this.ctx.textBaseline="bottom";
             this.ctx.font = "bold 10px Arial";
             this.ctx.fillText(gridValue, 10,gridY - 2);
             this.ctx.restore();
-
-            gridValue+=this.options.gridScale;
+            gridValue+=this.gridScale;
         }
 
-        //drawing the bars
+        //рисуем столбики
         let barIndex = 0;
-        let numberOfBars = this.options.data.size;
-        let barSize = (canvasActualWidth)/numberOfBars;
+        let barSize = (canvasActualWidth)/mapData.size;
         const coef = Math.round(canvasActualHeight /maxValue);
-        //for (let categ in this.options.data)
-        for (let val of this.options.data.values())
-        {
-            let barHeight = coef * val;
-            drawBar(
-                this.ctx,
-                this.options.padding + barIndex * barSize,
-                this.canvas.height - barHeight - this.options.padding,
-                barSize,
-                barHeight,
-                this.colors[barIndex%this.colors.length]
+        sortKey.forEach(key => {
+            let barHeight = coef * mapData.get(key);
+            drawBar(this.ctx,
+                this.padding + barIndex * barSize,
+                this.canvas.height - barHeight - this.padding,
+                barSize, barHeight, this.colors[barIndex%this.colors.length]
             );
             barIndex++;
-        }
+        });
 
-
-        //drawing the col markers
-        gridValue = 0;
-        while (gridValue <= maxValue){
-            let gridY = canvasActualHeight * (1 - gridValue/maxValue) + this.options.padding;
-
-            //writing grid markers
-            this.ctx.save();
-            this.ctx.fillStyle = this.options.gridColor;
-            this.ctx.textBaseline="bottom";
-            this.ctx.font = "bold 10px Arial";
-            this.ctx.fillText(gridValue, 10,gridY - 2);
-            this.ctx.restore();
-
-            gridValue+=this.options.gridScale;
-        }
-
-        //drawing series name
-        // this.ctx.save();
-        // this.ctx.textBaseline="bottom";
-        // this.ctx.textAlign="center";
-        // this.ctx.fillStyle = "#000000";
-        // this.ctx.font = "bold 14px Arial";
-        // this.ctx.fillText(this.options.seriesName, this.canvas.width/2,this.canvas.height);
-        // this.ctx.restore();
-
-        //draw legend
-        // barIndex = 0;
-        // let legend = document.querySelector("legend[for='myCanvas']");
-        // let ul = document.createElement("ul");
-        // legend.append(ul);
-        // for (let categ in this.options.data){
-        //     let li = document.createElement("li");
-        //     li.style.listStyle = "none";
-        //     li.style.borderLeft = "20px solid "+this.colors[barIndex%this.colors.length];
-        //     li.style.padding = "5px";
-        //     li.textContent = categ;
-        //     ul.append(li);
-        //     barIndex++;
-        //}
+        //маркеры по горизонтали 1
+        // gridValue = 1;
+        // while (gridValue <= mapData.size){
+        //     let gridY = canvasActualHeight * ( gridValue/mapData.size) + this.padding;
+        //     this.ctx.save();
+        //     this.ctx.fillStyle = this.gridColor;
+        //     this.ctx.font = "bold 10px Arial";
+        //     this.ctx.fillText(sortKey[gridValue-1], gridY-40 , 300);
+        //     this.ctx.restore();
+        //     gridValue+=this.gridScale;
+        // }
+        //маркеры по горизонтали 2
+        barIndex = 0;
+        let y = canvasActualHeight + this.padding+15;
+        let x = this.padding+2;
+        sortKey.forEach(key => {
+            this.ctx.fillText(key, x, y);
+            barIndex++;
+            x+= barSize;
+        });
     }
 }
 

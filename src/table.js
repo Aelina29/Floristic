@@ -24,15 +24,15 @@ class Table {
       if (ind!=-1) this.arr.splice(ind, 1);
   }
   SorByTime() {
-      this.arr.sort(TimeCompare);
+      this.arr.sort((a,b)=>TimeCompare(a.time, b.time));
       this.arr.sort(DateCompare);
   }
 }
 
 function TimeCompare(a,b)
 {
-  let ar = a.time.split('.');
-  let br = b.time.split('.');
+  let ar = a.split('.');
+  let br = b.split('.');
   if (Number(ar[0]) < Number(br[0])) return -1;
   if (Number(ar[0]) > Number(br[0])) return 1;
   if (Number(ar[0]) == Number(br[0]))
@@ -72,11 +72,6 @@ function IsDate(str)
 {
     const ar = str.split('-');
     if (ar.length != 3) return false;
-    // ar.forEach(el => {
-    //     console.log(el);
-    //     console.log(isNaN(Number(el)));
-    //     if (isNaN(Number(el))) return false;
-    // }); //ПАЧИМУ НЕ РАБОТАЕТ??????????????
     for (let i = 0; i < 3; i++) {
         if (isNaN(Number(ar[i]))) return false;
     }
@@ -91,3 +86,4 @@ export {Order}
 export {Table}
 export {IsTime}
 export {IsDate}
+export {TimeCompare}

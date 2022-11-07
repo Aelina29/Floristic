@@ -10,6 +10,7 @@ function setup() {
     document.getElementById('addButton').onclick = addOrder;
     document.getElementById('deleteButton').onclick = deleteOrder;
     document.getElementById('sortButton').onclick = sortTime;
+    document.getElementById('histButton').onclick = hist;
 }
 
 let table = new Table();
@@ -25,22 +26,15 @@ table.AddOrder(new Order(table.lastID+1,"18-05-22","18.30","Подсолнухи
 table.AddOrder(new Order(table.lastID+1,"18-05-22","18.30","Имбирный пряник 4, Открытка с днем матери любая, букет на 2500 яркий","Доломановский 12"));
 redrawTable();
 
-let mapData = OrderForeachTime();
 const myCanvas = document.getElementById("myCanvas");
 myCanvas.width = 300;
 myCanvas.height = 300;
-let myBarchart = new Barchart(
-    {
-        canvas:myCanvas,
-        seriesName:"Vinyl records",
-        padding:20,
-        gridScale:1,
-        gridColor:"#555454",
-        data:mapData,
-        colors:["#a55ca5","#67b6c7", "#bccd7a","#eb9743"]
-    }
-);
-myBarchart.draw();
+let myBarchart = new Barchart(myCanvas);
+
+function hist()
+{
+    myBarchart.draw(OrderForeachTime());
+}
 
 function sortTime()
 {
@@ -86,7 +80,8 @@ function addOrder(){
     if (!IsTime(time)) {alert("Wrong Time!!!"); f = 0;}
     const disc = document.getElementById('description').value;
     const adr = document.getElementById('address').value;
-    let ord = new Order(table.lastID+1,"17-05-22","9.00","Белые розы 31 шт","Соборный 22");
+    //let ord = new Order(table.lastID+1,"17-05-22","10.00","Белые розы 31 шт","Соборный 22");
+    let ord = new Order(table.lastID+1,"17-05-22",time,"Белые розы 31 шт","Соборный 22");
     if (f) table.AddOrder(ord);
     redrawTable();
 }
@@ -108,6 +103,5 @@ function OrderForeachTime()
             map.set(time,map.get(time)+1);
         }
     }
-    const sortedAsc = new Map([...map].sort());
-    return sortedAsc;
+    return map;
 }
