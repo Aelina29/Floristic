@@ -3,6 +3,8 @@ import {Order} from "../src/table";
 import {IsTime} from "../src/table";
 import {IsDate} from "../src/table";
 import {Barchart} from "../src/canvas";
+import {auth} from "../src/auth"
+
 
 document.addEventListener('DOMContentLoaded',setup);
 
@@ -11,6 +13,7 @@ function setup() {
     document.getElementById('deleteButton').onclick = deleteOrder;
     document.getElementById('sortButton').onclick = sortTime;
     document.getElementById('histButton').onclick = hist;
+    document.getElementById('authButton').onclick = auth;//auth;
 }
 
 let table = new Table();
