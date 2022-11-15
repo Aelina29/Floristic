@@ -3,7 +3,7 @@ import {Order} from "../src/table";
 import {IsTime} from "../src/table";
 import {IsDate} from "../src/table";
 import {Barchart} from "../src/canvas";
-import {auth} from "../src/auth"
+//import {auth} from "../src/auth"
 
 
 document.addEventListener('DOMContentLoaded',setup);

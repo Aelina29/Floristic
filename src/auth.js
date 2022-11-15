@@ -15,19 +15,19 @@ export function authWithEmailAndPassword(email, password) {
   alert("authWithEmailAndPassword");
 }
 
-export function auth() {
-    PopUpShow();
-  document
-    .getElementById('auth-form')
-    .addEventListener('submit', authFormHandler, {once: true})
-}
-
-export function PopUpShow(){//Функция отображения PopUp
-    $("#popup1").show();
-}
-export function PopUpHide(){//Функция скрытия PopUp
-    $("#popup1").hide();
-}
+// export function auth() {
+//     PopUpShow();
+//   document
+//     .getElementById('auth-form')
+//     .addEventListener('submit', authFormHandler, {once: true})
+// }
+//
+// export function PopUpShow(){//Функция отображения PopUp
+//     $("#popup1").show();
+// }
+// export function PopUpHide(){//Функция скрытия PopUp
+//     $("#popup1").hide();
+// }
 
 export function authFormHandler(event) {
   event.preventDefault()
